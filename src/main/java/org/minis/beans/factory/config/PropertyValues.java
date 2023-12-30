@@ -1,4 +1,4 @@
-package org.minis.beans;
+package org.minis.beans.factory.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ public class PropertyValues {
         this.propertyValues.add(propertyValue);
     }
 
-    public void addPropertyValue(String propertyName, Object propertyValue) {
-        addPropertyValue(new PropertyValue(propertyName, propertyValue));
-    }
+//    public void addPropertyValue(String propertyType, String propertyName, Object propertyValue) {
+//        addPropertyValue(new PropertyValue(propertyType, propertyName, propertyValue));
+//    }
 
     public void removePropertyValue(PropertyValue propertyValue) {
         this.propertyValues.remove(propertyValue);

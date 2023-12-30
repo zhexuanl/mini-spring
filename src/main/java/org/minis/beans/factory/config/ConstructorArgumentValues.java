@@ -1,6 +1,7 @@
-package org.minis.beans;
+package org.minis.beans.factory.config;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Refer to Spring's approach and provide two classes, ConstructorArgumentValues and PropertyValues,
@@ -10,25 +11,30 @@ import java.util.*;
  * objects
  */
 public class ConstructorArgumentValues {
-    private final Map<Integer, ConstructorArgumentValue> indexedArgumentValues = new HashMap<>();
+    //    private final Map<Integer, ConstructorArgumentValue> indexedArgumentValues = new HashMap<>();
 //    private final List<ConstructorArgumentValue> genericArgumentValues = new LinkedList<>();
+    private final List<ConstructorArgumentValue> constructorArgumentValues = new ArrayList<>();
 
     public ConstructorArgumentValues() {
     }
 
-    private void addArgumentValue(Integer key, ConstructorArgumentValue newValue) {
-        this.indexedArgumentValues.put(key, newValue);
-    }
-
-    public boolean hasIndexArgumentValue(int index) {
-        return this.indexedArgumentValues.containsKey(index);
+    public void addArgumentValue(ConstructorArgumentValue constructorArgumentValue) {
+        this.constructorArgumentValues.add(constructorArgumentValue);
     }
 
     public ConstructorArgumentValue getIndexedArgumentValue(int index) {
-        return this.indexedArgumentValues.get(index);
+        return this.constructorArgumentValues.get(index);
     }
 
-//    public void addGenericArgumentValue(Object value, String type) {
+    public boolean isEmpty() {
+        return this.constructorArgumentValues.isEmpty();
+    }
+
+    public int getArgumentCount() {
+        return this.constructorArgumentValues.size();
+    }
+
+    //    public void addGenericArgumentValue(Object value, String type) {
 //        this.genericArgumentValues.add(new ConstructorArgumentValue(type, value));
 //    }
 //
@@ -54,13 +60,4 @@ public class ConstructorArgumentValues {
 //        }
 //        return null;
 //    }
-//
-//    public int getArgumentCount() {
-//        return this.genericArgumentValues.size();
-//    }
-//
-    public boolean isEmpty() {
-        return this.indexedArgumentValues.isEmpty();
-    }
-
 }

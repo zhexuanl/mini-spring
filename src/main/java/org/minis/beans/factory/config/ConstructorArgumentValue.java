@@ -1,4 +1,4 @@
-package org.minis.beans;
+package org.minis.beans.factory.config;
 
 /**
  * POJO class corresponding to the &lt;constructor-args&gt; tag in beans.xml

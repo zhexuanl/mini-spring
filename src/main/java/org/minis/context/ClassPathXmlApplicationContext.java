@@ -1,8 +1,9 @@
 package org.minis.context;
 
+import org.dom4j.Element;
 import org.minis.beans.BeansException;
 import org.minis.beans.factory.BeanFactory;
-import org.minis.beans.factory.SimpleBeanFactory;
+import org.minis.beans.factory.support.SimpleBeanFactory;
 import org.minis.beans.factory.xml.XmlBeanDefinitionReader;
 import org.minis.core.io.ClassPathXmlResource;
 import org.minis.core.io.Resource;
@@ -18,6 +19,11 @@ import org.minis.core.io.Resource;
 public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
     SimpleBeanFactory beanFactory;
 
+    public ClassPathXmlApplicationContext(String fileName) {
+        this(fileName, true);
+    }
+
+
     /**
      * The context is responsible for integrating the startup process of the container,
      * reading the external configuration, parsing the bean definition,
@@ -25,12 +31,17 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
      *
      * @param fileName
      */
-    public ClassPathXmlApplicationContext(String fileName) {
+    public ClassPathXmlApplicationContext(String fileName, boolean isRefresh) {
         Resource resource = new ClassPathXmlResource(fileName);
         SimpleBeanFactory beanFactory = new SimpleBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+
         reader.loadBeanDefinitions(resource);
         this.beanFactory = beanFactory;
+
+        if (isRefresh) {
+            this.beanFactory.refresh();
+        }
     }
 
     @Override
@@ -41,11 +52,6 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
     @Override
     public Boolean containsBean(String name) {
         return this.beanFactory.containsBean(name);
-    }
-
-
-    public void registerBean(String beanName, Object obj) {
-        this.beanFactory.registerBean(beanName, obj);
     }
 
     @Override
@@ -66,5 +72,13 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
     @Override
     public void publishEvent(ApplicationEvent event) {
 
+    }
+
+    public void testIterator(String fileName) {
+        ClassPathXmlResource resource = new ClassPathXmlResource(fileName);
+        while (resource.hasNext()) {
+            Element element = (Element) resource.next();
+            System.out.println(element.asXML());
+        }
     }
 }

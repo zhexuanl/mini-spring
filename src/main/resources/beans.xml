@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans>
     <bean id="aService" class="org.minis.test.AServiceImpl">
-        <constructor-arg type="String" name="name" value="abc" />
-        <constructor-arg type="int" name="level" value="3" />
-        <property type="String" name="property1" value="Hello Spring" />
-        <property type="String" name="property2" value="Hello World" />
+        <constructor-arg type="String" name="name" value="abc"/>
+        <constructor-arg type="int" name="level" value="3"/>
+        <property type="String" name="property1" value="Someone says"/>
+        <property type="String" name="property2" value="Hello World!"/>
+        <property type="org.minis.test.BaseService" name="ref1"
+                  ref="baseService"/>
+    </bean>
+    <bean id="baseService" class="org.minis.test.BaseService">
+        <property type="org.minis.test.TestService" name="testService"
+                  ref="testService"/>
+    </bean>
+    <bean id="testService" class="org.minis.test.TestService">
+        <property type="org.minis.test.AServiceImpl" name="as" ref="aService"/>
     </bean>
 </beans>

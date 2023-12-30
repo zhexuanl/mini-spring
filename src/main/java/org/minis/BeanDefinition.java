@@ -1,7 +1,7 @@
 package org.minis;
 
-import org.minis.beans.ConstructorArgumentValues;
-import org.minis.beans.PropertyValues;
+import org.minis.beans.factory.config.ConstructorArgumentValues;
+import org.minis.beans.factory.config.PropertyValues;
 
 public class BeanDefinition {
     String SCOPE_SINGLETON = "singleton";

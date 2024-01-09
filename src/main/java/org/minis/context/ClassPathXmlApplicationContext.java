@@ -3,6 +3,7 @@ package org.minis.context;
 import org.dom4j.Element;
 import org.minis.beans.BeansException;
 import org.minis.beans.factory.BeanFactory;
+import org.minis.beans.factory.support.AutowiredCapableBeanFactory;
 import org.minis.beans.factory.support.SimpleBeanFactory;
 import org.minis.beans.factory.xml.XmlBeanDefinitionReader;
 import org.minis.core.io.ClassPathXmlResource;
@@ -17,7 +18,7 @@ import org.minis.core.io.Resource;
  * </pre>
  */
 public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
-    SimpleBeanFactory beanFactory;
+    AutowiredCapableBeanFactory beanFactory;
 
     public ClassPathXmlApplicationContext(String fileName) {
         this(fileName, true);
@@ -33,12 +34,11 @@ public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationE
      */
     public ClassPathXmlApplicationContext(String fileName, boolean isRefresh) {
         Resource resource = new ClassPathXmlResource(fileName);
-        SimpleBeanFactory beanFactory = new SimpleBeanFactory();
+        AutowiredCapableBeanFactory beanFactory = new AutowiredCapableBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
 
         reader.loadBeanDefinitions(resource);
         this.beanFactory = beanFactory;
-
         if (isRefresh) {
             this.beanFactory.refresh();
         }

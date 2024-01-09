@@ -8,7 +8,7 @@ import org.minis.beans.factory.config.ConstructorArgumentValue;
 import org.minis.beans.factory.config.ConstructorArgumentValues;
 import org.minis.beans.factory.config.PropertyValue;
 import org.minis.beans.factory.config.PropertyValues;
-import org.minis.beans.factory.support.SimpleBeanFactory;
+import org.minis.beans.factory.support.AutowiredCapableBeanFactory;
 import org.minis.core.io.Resource;
 
 import java.util.ArrayList;
@@ -19,12 +19,12 @@ import java.util.List;
  * Convert parsed XML into the required BeanDefinition.
  */
 public class XmlBeanDefinitionReader {
-    SimpleBeanFactory simpleBeanFactory;
+    AutowiredCapableBeanFactory beanFactory;
 
     private Logger logger = LogManager.getLogger(XmlBeanDefinitionReader.class);
 
-    public XmlBeanDefinitionReader(SimpleBeanFactory simpleBeanFactory) {
-        this.simpleBeanFactory = simpleBeanFactory;
+    public XmlBeanDefinitionReader(AutowiredCapableBeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
     }
 
     /**
@@ -89,7 +89,7 @@ public class XmlBeanDefinitionReader {
 
             logger.debug("Bean " + beanId + " depends on: " + Arrays.toString(refArray));
 
-            this.simpleBeanFactory.registerBeanDefinition(beanId, beanDefinition);
+            this.beanFactory.registerBeanDefinition(beanId, beanDefinition);
             logger.debug("Registered BeanDefinition with id: " + beanId);
         }
         logger.debug("Finished loadBeanDefinitions.");
